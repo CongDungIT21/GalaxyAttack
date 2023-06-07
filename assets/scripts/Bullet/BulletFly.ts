@@ -3,35 +3,53 @@ const { ccclass, property } = _decorator;
 
 @ccclass('BulletFly')
 export class BulletFly extends Component {
-    private speed: number;
-    private angle: number;
+    private _speed: number;
+    private _angle: number;
+    private _isStart : boolean;
+    private direction : Vec3;
 
-    protected onLoad(): void {
-        this.speed = 100;
-        this.angle = 30;
+    init(angle: number, speed: number) {
+        this._speed = speed;
+        this._angle = angle;
+    }
+
+    onLoad() {
+        this._speed = 100;
+        this._angle = 160;
+        this._isStart = false;
     }
     
-    start() {
 
+    start() {
+        this.calculateDirection();
     }
 
     update(deltaTime: number) {
         this.moving(deltaTime);
     }
 
-    moving(deltaTime: number) {                
-        let angleInRadians = misc.degreesToRadians(this.angle);
-        this.node.parent.angle = this.angle - 90;
-        let vectorDirector = new Vec3(Math.cos(angleInRadians), Math.sin(angleInRadians), 0);
-        let oldPos = this.node.parent.getPosition();
-        let rotationVector = vectorDirector.multiply(oldPos);
-
-        let spaceX = this.speed * deltaTime;
-        let spaceY = this.speed * deltaTime;
-
-        let newPos = new Vec3(rotationVector.x + spaceX, rotationVector.y + spaceY, 0);
-        this.node.parent.setPosition(newPos);
+    calculateDirection()
+    {
+        let _angleInRadians = misc.degreesToRadians(this._angle);
+        this.node.parent.angle = this._angle - 90;
+        let vectorDirector = new Vec3(Math.cos(_angleInRadians), Math.sin(_angleInRadians), 0);
+        this.direction = vectorDirector;
     }
+
+    moving(deltaTime: number) {                
+        if(!this._isStart) 
+            return;              
+        let currentPos = this.node.parent.getPosition();
+        let spaceX = this.direction.x * this._speed * deltaTime;
+        let spaceY = this.direction.y * this._speed * deltaTime
+        let newPos = new Vec3(currentPos.x + spaceX, currentPos.y + spaceY);       
+        this.node.parent.setPosition(newPos);        
+    }
+
+    public set isStart(value: boolean) {
+        this._isStart = value;
+    }
+    
 }
 
 

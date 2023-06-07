@@ -1,8 +1,12 @@
 import { _decorator, Camera, Canvas, Component, director, EventMouse, input, Input, Node, UITransform, v3, Vec3 } from 'cc';
+import { ShipShooting } from './ShipShooting';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipMovement')
 export class ShipMovement extends Component {
+    @property(ShipShooting)
+    shipShooting: ShipShooting
+
     private camera: Camera;
     private canvas: Canvas;
     private isTracking: boolean;
@@ -17,9 +21,15 @@ export class ShipMovement extends Component {
     }
 
     start() {
-        input.on(Input.EventType.MOUSE_DOWN, (event: EventMouse) => this.isTracking = true, this);
+        input.on(Input.EventType.MOUSE_DOWN, (event: EventMouse) => {
+            this.isTracking = true; 
+            this.shipShooting.isShooting = true;
+        }, this);
         input.on(Input.EventType.MOUSE_MOVE, this.onMouseMove, this);
-        input.on(Input.EventType.MOUSE_UP, (event: EventMouse) => this.isTracking = false, this);
+        input.on(Input.EventType.MOUSE_UP, (event: EventMouse) => {
+            this.isTracking = false;
+            this.shipShooting.isShooting = false;
+        }, this);
     }
 
     onMouseMove(event: EventMouse) {
@@ -29,14 +39,6 @@ export class ShipMovement extends Component {
         const newPos = this.node.parent.parent.getComponent(UITransform).convertToNodeSpaceAR(worldSpace);
         this.newPosition = newPos;
     }
-
-    getPostionInOtherNode (spaceNode: Node, targetNode: Node) {        
-		if (targetNode.parent == null) {
-			return null;
-		}
-		let pos = targetNode.parent.getComponent(UITransform).convertToWorldSpaceAR(targetNode.getPosition());
-		return spaceNode.getComponent(UITransform).convertToNodeSpaceAR(pos);
-	}
 
     update(deltaTime: number) {
         if(this.newPosition !== null && this.isTracking) {
