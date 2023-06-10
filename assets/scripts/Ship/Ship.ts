@@ -23,6 +23,11 @@ export class Ship extends Component {
         
     }
 
+    enableShiled() {
+        // throw new Error('Method not implemented.');
+        console.log('enableShiled');
+    }
+
     actionActive() {
         Tween.stopAllByTarget(this.node);
         tween(this.node)

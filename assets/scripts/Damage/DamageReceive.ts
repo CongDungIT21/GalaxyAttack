@@ -38,7 +38,7 @@ export class DamageReceive extends Component {
 
     deductHealthPoint(hp: number) {
         this._hp -= hp;
-        console.log("this._hp: " + this._hp);
+        // console.log("this._hp: " + this._hp);
         if(this._hp < 0)
             this._hp = 0;
     }
@@ -61,7 +61,7 @@ export class DamageReceive extends Component {
     }
 
     playAudioDead() {
-        console.log("playAudioDead")
+        // console.log("playAudioDead")
         AudioManage.instance.enemyDie.play();        
     }
 
