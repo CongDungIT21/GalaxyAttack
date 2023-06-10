@@ -2,6 +2,7 @@ import { _decorator, Canvas, Component, director, instantiate, JsonAsset, Node, 
 import { Ship } from './Ship/Ship';
 import { Enemy } from './Enemy/Enemy';
 import { EnemySpawner } from './Enemy/EnemySpawner';
+import { AudioManage } from './AudioManage';
 const { ccclass, property } = _decorator;
 
 interface DataShip {
@@ -25,6 +26,7 @@ export class GameController extends Component {
     prefabEnemies: Prefab[] = [];
 
     start() {
+        AudioManage.instance.background.play();
         console.log("JSON Data", this.config.json);
         this.initChallenge(this.config.json);
     }

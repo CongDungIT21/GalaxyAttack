@@ -1,4 +1,4 @@
-import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, game, IPhysics2DContact, Node, PhysicsSystem2D } from 'cc';
 import { DamageReceive } from './DamageReceive';
 import { Bullet } from '../Bullet/Bullet';
 import { AnimSpawner } from '../Anim/AnimSpawner';
@@ -8,9 +8,11 @@ const { ccclass, property } = _decorator;
 export class DamageSender extends Component {
     private damage: number;
     private isDead: boolean;
+    private isActice: boolean;
     onLoad() {
         this.damage = 10;
         this.isDead = false;
+        this.isActice = false;
 
         PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.Aabb |
         EPhysics2DDrawFlags.Pair |
@@ -32,10 +34,11 @@ export class DamageSender extends Component {
     }
     
     lateUpdate(dt: number) {
-        // if(this.isDead) {
-            //     this.isDead = false;
-            //     this.node.parent.destroy();
-            // }
+        //Tắt khả năng gửi Đam và va chạm => Lao ra khỏi màn hình => Despawn
+        if(this.isActice) {
+            this.node.parent.getComponent(Bullet).disableSendDamage();
+            this.isActice = false;
+        }
     }
         
     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
@@ -43,16 +46,10 @@ export class DamageSender extends Component {
         if(this.node.name === otherCollider.node.name) return;
         // if(this.node.parent.name === otherCollider.node.name) return;
 
-        console.log("this.node.name: ", this.node.name);
-        console.log("this.node.parent.name: ", this.node.parent.name);
-        console.log("this.node.parent.name: ", this.node.parent.name);
-
-        this.node.parent.getComponent(Bullet).stopFly();
-        this.node.parent.getComponent(Bullet).despawn();
-
         this.sendDamage(otherCollider.node);
         this.createrBulletAnim();
-      
+        //this.node.active = false; //Error ??
+        this.isActice = true;
     }
 
     sendDamage(_node: Node) {

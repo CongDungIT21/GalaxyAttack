@@ -14,6 +14,7 @@ export class BulletFly extends Component {
     }
 
     onLoad() {
+        console.log("Bulllet Fly Onload");
         this._speed = 100;
         this._angle = 160;
         this._isStart = false;
@@ -21,6 +22,7 @@ export class BulletFly extends Component {
     
 
     start() {
+        console.log("Bulllet Fly OnStart");
         this.calculateDirection();
     }
 

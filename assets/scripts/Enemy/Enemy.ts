@@ -1,8 +1,13 @@
-import { _decorator, Component, Node, tween, Tween, Vec3 } from 'cc';
+import { _decorator, Component, Node, Prefab, tween, Tween, Vec3 } from 'cc';
+import { ItemDrop } from '../Item/ItemDrop';
+import { ItemDropInEnemy } from '../Item/ItemDropInEnemy';
 const { ccclass, property } = _decorator;
 
 @ccclass('Enemy')
 export class Enemy extends Component {
+    @property(Prefab)  
+    itemDrop: Prefab;
+
     private startPos: Vec3;
     private endPos: Vec3;
 

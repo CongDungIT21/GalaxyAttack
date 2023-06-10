@@ -1470,6 +1470,10 @@
     "__prefab": {
       "__id__": 69
     },
+    "itemDrop": {
+      "__uuid__": "63412af0-7e69-4b7f-b5fc-4d89d9b35628",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": ""
   },
   {

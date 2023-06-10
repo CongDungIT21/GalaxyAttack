@@ -7,5 +7,22 @@
       "width": 720,
       "height": 1280
     }
+  },
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "DAMAGE"
+      },
+      {
+        "index": 2,
+        "name": "LOOTER"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 1,
+      "1": 2,
+      "2": 4
+    }
   }
 }

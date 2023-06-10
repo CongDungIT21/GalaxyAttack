@@ -1,5 +1,9 @@
 import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D, Vec3 } from 'cc';
 import { AnimSpawner } from '../Anim/AnimSpawner';
+import { ItemDropSpawner } from '../Item/ItemDropSpawner';
+import { Bullet } from '../Bullet/Bullet';
+import { Enemy } from '../Enemy/Enemy';
+import { AudioManage } from '../AudioManage';
 const { ccclass, property } = _decorator;
 
 @ccclass('DamageReceive')
@@ -50,11 +54,15 @@ export class DamageReceive extends Component {
     }
 
     handleStateDead() {
-        console.log("handleStateDead")
-        // this._hp = this._MAXHP;
-        // this.node.parent.active = false;
+        this.playAudioDead();
         this.spawnerAnimExplosion();
+        this.spawnerItemDrop();
         // this.node.destroy();
+    }
+
+    playAudioDead() {
+        console.log("playAudioDead")
+        AudioManage.instance.enemyDie.play();        
     }
 
     spawnerAnimExplosion() {
@@ -63,6 +71,11 @@ export class DamageReceive extends Component {
         let angle = 90;
         let anim = AnimSpawner.instance.spawn(animName, angle, posInWorld);
         anim.active = true;
+    }
+
+    spawnerItemDrop() {
+        let enemy = this.node.parent;
+        ItemDropSpawner.instance.dropItem(enemy.getComponent(Enemy).itemDrop, enemy.getWorldPosition(), enemy.angle);
     }
 
     public set MAXHP(value: number) {

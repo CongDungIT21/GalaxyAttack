@@ -13,7 +13,18 @@ export abstract class Spawner extends Component {
     private nodeReStore: Node;
 
     private dem = 1;
+    private nameSpawner = null;
+
+    getSpawnerable() {
+        return this.spawnerable;
+    }
+
+    getSpawnered() {
+        return this.spawneds;
+    }
+
     onLoad() {
+        console.log("Spawner Onload")
         this.spawneds = [];
         this.spawnerable = [];
         this.spawners = this.node.getChildByName('Spawnes');
@@ -26,10 +37,12 @@ export abstract class Spawner extends Component {
     }
 
     loadSpawneds() {
+        console.log('loadSpawneds');
         if(this.spawneds.length > 0) 
             return;
         // console.log("loadSpawneds");
         this.spawners.children.forEach(pool => this.spawnerable.push(pool));
+        console.log('loadSpawneds', this.spawnerable);
         this.hideSpawners();
     }
 
@@ -38,14 +51,19 @@ export abstract class Spawner extends Component {
     }
 
     spawn(name: string, angle: number = 0, posInWorld: Vec3 = new Vec3(0, 0, 0)) {
+        this.nameSpawner = name;
         // console.log("spawn " + name);
         let nodePool = this.getNodePool(name);
+        if(this.nameSpawner === "ItemDrop") {
+            console.log(posInWorld)
+        }
+
         if(nodePool) {
             // console.log("dem: ", this.dem++);
             nodePool.parent = this.holders;
             let posInHolder = this.holders.getComponent(UITransform).convertToNodeSpaceAR(posInWorld);
             nodePool.setPosition(posInHolder);
-            // console.log(this.holders.children);
+            if(this.nameSpawner === "ItemDrop") console.log(this.holders.children);
             // console.log("pool: ", this.spawneds)
             return nodePool;
         }
@@ -55,8 +73,8 @@ export abstract class Spawner extends Component {
     }
 
     getNodePool(name: string) {
-        // console.log("getNodePool", this.spawneds);
-        // console.log("name", name);
+        if(this.nameSpawner === "ItemDrop") console.log("getNodePool", this.spawneds);
+        if(this.nameSpawner === "ItemDrop") console.log("name", name);
         for (const node of this.spawneds) {
             if(node.name === name) {
                 this.spawneds = this.spawneds.filter(_node => _node !== node); // Đưa ra khỏi
@@ -67,7 +85,7 @@ export abstract class Spawner extends Component {
     }
 
     getNewNodePool(name: string) {
-        // console.log("getNewNodePool", this.spawnerable);
+        if(this.nameSpawner === "ItemDrop") console.log("getNewNodePool", this.spawnerable);
         for (const node of this.spawnerable) {
             if(node.name === name) {
                 let nodePool = instantiate(node);

@@ -1,17 +1,22 @@
 import { _decorator, Component, instantiate, Node, Prefab, UITransform, Vec3 } from 'cc';
 import { BulletFly } from './BulletFly';
 import { BulletDespawn } from './BulletDespawn';
+import { DamageSender } from '../Damage/DamageSender';
+import { ItemDrop } from '../Item/ItemDrop';
+import { AudioManage } from '../AudioManage';
 const { ccclass, property } = _decorator;
 
 @ccclass('Bullet')
 export class Bullet extends Component {
     @property(BulletFly)
     bulletFly: BulletFly;
-    @property(BulletDespawn)
-    bulletDespawn: BulletDespawn;
-    
+    @property(DamageSender)
+    damageSender: DamageSender;  
+
     @property(Prefab)
     bulletAnim: Prefab;
+
+
     private isDead: boolean;
     private posInWorld: Vec3;
     private angle: number;
@@ -32,11 +37,6 @@ export class Bullet extends Component {
         this.bulletFly.init(this.angle, this.speed);
     }
 
-
-    despawn() {
-        this.bulletDespawn.despawnNode();
-    }
-
     startFly() {
         this.bulletFly.isStart = true;
     }
@@ -45,12 +45,22 @@ export class Bullet extends Component {
         this.bulletFly.isStart = false;
     }
 
-    startAnimation() {
-        this.node.removeAllChildren();
-        let newAnim = instantiate(this.bulletAnim);
-        this.node.addChild(newAnim);  
+    // startAnimation() {
+    //     this.node.removeAllChildren();
+    //     let newAnim = instantiate(this.bulletAnim);
+    //     this.node.addChild(newAnim);  
         
-        setTimeout(() => this.isDead = true, 100);
+    //     setTimeout(() => this.isDead = true, 100);
+    // }
+
+    enabledSendDamage() {
+        this.damageSender.node.active = true;
+        this.node.getChildByName("Model").active = true;
+    }
+
+    disableSendDamage() {
+        this.damageSender.node.active = false;
+        this.node.getChildByName("Model").active = false;
     }
 
     update(deltaTime: number) {
