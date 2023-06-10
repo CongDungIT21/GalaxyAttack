@@ -6,6 +6,7 @@ export class SpaceShip extends Component {
     private canvas: Canvas;
     private isTracking: boolean;
     private delayTime: number; // Thời gian các item vào đúng vị trí
+
     onLoad() {
         this.canvas = director.getScene().getComponentInChildren(Canvas);    
         this.isTracking = false;   

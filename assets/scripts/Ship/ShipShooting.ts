@@ -1,6 +1,6 @@
 import { _decorator, Canvas, Component, director, instantiate, Node, Prefab } from 'cc';
 import { Bullet } from '../Bullet/Bullet';
-import { BulletSpawner } from '../Spawner/BulletSpawner';
+import { BulletSpawner } from '../Bullet/BulletSpawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipShooting')
@@ -16,7 +16,7 @@ export class ShipShooting extends Component {
     onLoad() {
         this.canvas = director.getScene().getComponentInChildren(Canvas);
         this._isShooting = false;
-        this.timeDelay = 1;
+        this.timeDelay = 0.2; //speed shoot
         this.timeCounter = 0;
     }
 
@@ -32,10 +32,19 @@ export class ShipShooting extends Component {
         if(this.timeCounter >= this.timeDelay) {
             this.timeCounter = 0;
             let posInWorld = this.node.getWorldPosition();
-            let bullet = BulletSpawner.instance.spawn("Bullet", 90, posInWorld);
-            bullet.active = true;
-            bullet.getComponent(Bullet).init(90, 1000, posInWorld);
-            bullet.getComponent(Bullet).startFly();
+            // let bullet = BulletSpawner.instance.spawn("Bullet", 90, posInWorld);
+            // bullet.active = true;
+            // bullet.getComponent(Bullet).init(90, 1000, posInWorld);
+            // bullet.getComponent(Bullet).startFly();
+
+            let angle = 90 - 5*9;
+            for(let i=0;i<18;i++) {                
+                let bullet = BulletSpawner.instance.spawn("Bullet", angle, posInWorld);
+                bullet.active = true;
+                bullet.getComponent(Bullet).init(angle, 1000, posInWorld);
+                bullet.getComponent(Bullet).startFly();
+                angle += 5;
+            }
         }
         else 
             return;

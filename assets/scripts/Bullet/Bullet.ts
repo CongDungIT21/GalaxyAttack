@@ -29,7 +29,7 @@ export class Bullet extends Component {
     }
 
     start() {
-        this.bulletFly.init(this.angle, this.speed + 1000);
+        this.bulletFly.init(this.angle, this.speed);
     }
 
 

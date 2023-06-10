@@ -10,37 +10,46 @@ export class UI_Start extends Component {
     tutorial: Node;
 
     private delayTime: number; // Thời gian các item vào đúng vị trí
-
+    private startPosition: Vec3;
+    private endPosition: Vec3;
+    private isTweening: boolean;
     onLoad() {
-        this.delayTime = 2;
+        this.delayTime = 1;
         this.hand.active = false;
-        this.tutorial.active = false;        
+        this.tutorial.active = false;
+        this.startPosition = new  Vec3(0, -800, 0);
+        this.endPosition = new  Vec3(0, -560, 0);   
+        this.isTweening = false;   
     }
 
     start() {
-        this.tweenHand();
-        this.tweenTutorial();
+        this.isTweening = true;
     }
     tweenTutorial() {
-        throw new Error('Method not implemented.');
+        Tween.stopAllByTarget(this.tutorial);
+        tween(this.tutorial)
+            .call(() => this.tutorial.active = true)
+            .call(() => this.tutorial.setPosition(this.startPosition))
+            .to(1, {position: this.endPosition}, {easing: "cubicIn"})
+            .start();
     }
 
     
     tweenHand() {
+        this.hand.active = true;
         Tween.stopAllByTarget(this.hand);
         let handPos = this.hand.getPosition();
-        tween(this.hand)
-            .delay(this.delayTime)
-            .call(() => this.hand.active = true)
+
+        tween(this.hand)            
             .repeatForever(
-            tween(this.hand)
-                .to(0.8, {position: new Vec3(handPos.x + 73, handPos.y, handPos.z)}, {easing: 'cubicInOut'})
-                .delay(0.2)
-                .to(0.8, {position: new Vec3(handPos.x - 73, handPos.y, handPos.z)}, {easing: 'cubicInOut'})
-                .delay(0.2)
+                tween(this.hand)
+                    .to(0.8, {position: new Vec3(handPos.x + 73, handPos.y, handPos.z)}, {easing: 'cubicInOut'})
+                    .delay(0.2)
+                    .to(0.8, {position: new Vec3(handPos.x - 73, handPos.y, handPos.z)}, {easing: 'cubicInOut'})
+                    .delay(0.2)
                 )
-                .start();
-                
+                .union()
+            .start();          
     }
             
     onClickOverlay(event: UIEvent) {
@@ -48,7 +57,15 @@ export class UI_Start extends Component {
     }
 
     update(deltaTime: number) {
-        
+        if(this.isTweening) {
+            this.delayTime -= deltaTime;
+            if(this.delayTime <= 0) {
+                this.delayTime = 1;
+                this.isTweening = false;
+                this.tweenHand();
+                this.tweenTutorial();
+            }
+        }
     }
 }
 

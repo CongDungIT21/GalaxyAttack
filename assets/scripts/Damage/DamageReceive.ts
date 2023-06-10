@@ -1,4 +1,5 @@
-import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D, Vec3 } from 'cc';
+import { AnimSpawner } from '../Anim/AnimSpawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('DamageReceive')
@@ -21,7 +22,7 @@ export class DamageReceive extends Component {
     }
 
 
-    lateUpdate(dt: number) {
+    lateUpdate(dt: number) {        
         this.checkStateDead();
     }
 
@@ -33,6 +34,7 @@ export class DamageReceive extends Component {
 
     deductHealthPoint(hp: number) {
         this._hp -= hp;
+        console.log("this._hp: " + this._hp);
         if(this._hp < 0)
             this._hp = 0;
     }
@@ -44,11 +46,23 @@ export class DamageReceive extends Component {
     }
 
     isDead() {
-        return this._hp === 0;
+        return this._hp <= 0;
     }
 
     handleStateDead() {
-        
+        console.log("handleStateDead")
+        // this._hp = this._MAXHP;
+        // this.node.parent.active = false;
+        this.spawnerAnimExplosion();
+        // this.node.destroy();
+    }
+
+    spawnerAnimExplosion() {
+        let animName = AnimSpawner.animExplosion;
+        let posInWorld = this.node.getWorldPosition();
+        let angle = 90;
+        let anim = AnimSpawner.instance.spawn(animName, angle, posInWorld);
+        anim.active = true;
     }
 
     public set MAXHP(value: number) {

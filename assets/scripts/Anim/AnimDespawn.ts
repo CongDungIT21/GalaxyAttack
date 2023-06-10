@@ -1,10 +1,10 @@
 import { _decorator, Component, Node } from 'cc';
-import { DespawnerByDistance } from '../Despawn/DespawnByDistance';
-import { BulletSpawner } from './BulletSpawner';
+import { DespawnByTime } from '../Despawn/DespawnByTime';
+import { AnimSpawner } from './AnimSpawner';
 const { ccclass, property } = _decorator;
 
-@ccclass('BulletDespawn')
-export class BulletDespawn extends DespawnerByDistance {
+@ccclass('AnimDespawn')
+export class AnimDespawn extends DespawnByTime {
     onLoad() {
         super.onLoad();
     }
@@ -14,12 +14,12 @@ export class BulletDespawn extends DespawnerByDistance {
     }
 
     update(deltaTime: number) {
-        
+        super.update(deltaTime);
     }
 
     //Override cách despawn
     despawnNode(): void {
-        BulletSpawner.instance.despawnReStore(this.node.parent);
+        AnimSpawner.instance.despawnReStore(this.node.parent);
     }
 }
 

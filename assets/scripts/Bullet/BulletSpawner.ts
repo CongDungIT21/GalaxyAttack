@@ -1,5 +1,5 @@
 import { _decorator, Component, Node } from 'cc';
-import { Spawner } from './Spawner';
+import { Spawner } from '../Spawner/Spawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('BulletSpawner')

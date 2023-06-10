@@ -1,7 +1,7 @@
 import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D } from 'cc';
 import { DamageReceive } from './DamageReceive';
 import { Bullet } from '../Bullet/Bullet';
-import { BulletAnimSpawner } from '../Spawner/BulletAnimSpawner';
+import { AnimSpawner } from '../Anim/AnimSpawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('DamageSender')
@@ -39,7 +39,13 @@ export class DamageSender extends Component {
     }
         
     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        console.log("onBeginContact");
+        //Ko tương tác với bản thân và thứ tạo ra
+        if(this.node.name === otherCollider.node.name) return;
+        // if(this.node.parent.name === otherCollider.node.name) return;
+
+        console.log("this.node.name: ", this.node.name);
+        console.log("this.node.parent.name: ", this.node.parent.name);
+        console.log("this.node.parent.name: ", this.node.parent.name);
 
         this.node.parent.getComponent(Bullet).stopFly();
         this.node.parent.getComponent(Bullet).despawn();
@@ -50,7 +56,7 @@ export class DamageSender extends Component {
     }
 
     sendDamage(_node: Node) {
-        console.log("sendDamage");
+        //console.log("sendDamage");
         let damageReceive = _node.getComponent(DamageReceive);
         if(!damageReceive) return;
         damageReceive.deductHealthPoint(this.damage);
@@ -58,10 +64,10 @@ export class DamageSender extends Component {
     }
 
     createrBulletAnim() {
-        console.log("createrBulletAnim");
-        let nameAnim = BulletAnimSpawner.animBullet;
+        //console.log("createrBulletAnim");
+        let nameAnim = AnimSpawner.animBullet;
 
-        let anim = BulletAnimSpawner.instance.spawn(nameAnim, 90, this.node.getWorldPosition());        
+        let anim = AnimSpawner.instance.spawn(nameAnim, 90, this.node.getWorldPosition());        
         anim.active = true;
     }
 

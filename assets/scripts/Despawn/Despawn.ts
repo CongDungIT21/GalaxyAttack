@@ -23,6 +23,7 @@ export abstract class Despawner extends Component {
         if(!this.checkDespawnable()) 
             return
 
+        // console.log("despawnNode")
         this.despawnNode();        
     }
 

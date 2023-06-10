@@ -24,7 +24,7 @@ export class DespawnerByDistance extends Despawner {
     }
 
     //Override checkDeswnable
-    checkDespawnable(): boolean {
+    checkDespawnable(): boolean {        
         let distance = this.caculatorDistance();
         if(distance && distance > this.distanceMax) {
             return true;
