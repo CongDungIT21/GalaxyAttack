@@ -40,7 +40,7 @@ export class Ship extends Component {
     }
 
     applyEffectToShield() {
-        this.shipShield.showPowerUpShield(5);
+        this.shipShield.showPowerUpShield(1.5);
     }
 
     powerUpDone() {
