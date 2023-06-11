@@ -1,24 +1,20 @@
-import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D, Vec3 } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, IPhysics2DContact, Node, PhysicsSystem2D, random, Vec3 } from 'cc';
 import { AnimSpawner } from '../Anim/AnimSpawner';
 import { ItemDropSpawner } from '../Item/ItemDropSpawner';
 import { Bullet } from '../Bullet/Bullet';
 import { Enemy } from '../Enemy/Enemy';
 import { AudioManage } from '../AudioManage';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('DamageReceive')
 export class DamageReceive extends Component {
     private _hp: number; //Health Points
     private _MAXHP: number;
-
+    private isStateDead: boolean;
     onLoad() {
         this._MAXHP = 30;  
-        
-        PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.Aabb |
-        EPhysics2DDrawFlags.Pair |
-        EPhysics2DDrawFlags.CenterOfMass |
-        EPhysics2DDrawFlags.Joint |
-        EPhysics2DDrawFlags.Shape;
+        this.isStateDead = false;
     }
     
     start() {
@@ -26,7 +22,7 @@ export class DamageReceive extends Component {
     }
 
 
-    lateUpdate(dt: number) {        
+    update(dt: number) {        
         this.checkStateDead();
     }
 
@@ -44,19 +40,28 @@ export class DamageReceive extends Component {
     }
 
     checkStateDead() {
-        if(!this.isDead()) 
+        if(!this.isDead() || this.isStateDead) 
             return;
+        
         this.handleStateDead();
     }
 
     isDead() {
-        return this._hp <= 0;
+        return this._hp === 0;
+    }
+
+    resertHP() {
+        this._hp = this._MAXHP;
+        this.isStateDead = false;
     }
 
     handleStateDead() {
+        this.isStateDead = true;
+
         this.playAudioDead();
         this.spawnerAnimExplosion();
         this.spawnerItemDrop();
+        this.notifyEnemyDead()
         // this.node.destroy();
     }
 
@@ -74,8 +79,17 @@ export class DamageReceive extends Component {
     }
 
     spawnerItemDrop() {
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        // console.log("Random Number: " + randomNumber);
+        if(randomNumber > 20) 
+            return;
         let enemy = this.node.parent;
         ItemDropSpawner.instance.dropItem(enemy.getComponent(Enemy).itemDrop, enemy.getWorldPosition(), enemy.angle);
+    }
+
+    notifyEnemyDead() {
+        console.log("Notify Enemy Dead: ", this.node.parent.uuid);
+        GameController.instance.enemyDead();
     }
 
     public set MAXHP(value: number) {

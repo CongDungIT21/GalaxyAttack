@@ -1,4 +1,4 @@
-import { _decorator, BoxCollider2D, CircleCollider2D, Collider2D, Component, Contact2DType, IPhysics2DContact, Node } from 'cc';
+import { _decorator, BoxCollider2D, CircleCollider2D, Collider2D, Component, Contact2DType, IPhysics2DContact, Node, Vec3 } from 'cc';
 import { ItemDrop } from '../Item/ItemDrop';
 const { ccclass, property } = _decorator;
 
@@ -12,12 +12,12 @@ export class Pickupable extends Component {
     }
 
     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        console.log("Pickupable On BeginContact");
+        // console.log("Pickupable On BeginContact");
         this.node.parent.getComponent(ItemDrop).despawnItem();
     }
 
     update(deltaTime: number) {
-        
+        this.node.setPosition(new Vec3(0, 0, 0));
     }
 }
 

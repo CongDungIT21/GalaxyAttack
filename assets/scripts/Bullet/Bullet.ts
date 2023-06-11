@@ -2,8 +2,6 @@ import { _decorator, Component, instantiate, Node, Prefab, UITransform, Vec3 } f
 import { BulletFly } from './BulletFly';
 import { BulletDespawn } from './BulletDespawn';
 import { DamageSender } from '../Damage/DamageSender';
-import { ItemDrop } from '../Item/ItemDrop';
-import { AudioManage } from '../AudioManage';
 const { ccclass, property } = _decorator;
 
 @ccclass('Bullet')
@@ -26,6 +24,7 @@ export class Bullet extends Component {
         this.angle = angle;
         this.speed = speed;
         this.posInWorld = posInWorld;
+        
     }
 
     onLoad() {
@@ -33,25 +32,22 @@ export class Bullet extends Component {
         this.stopFly();
     }
 
-    start() {
+    onEnable() {
         this.bulletFly.init(this.angle, this.speed);
+    }
+
+    start() {
+        // this.bulletFly.init(this.angle, this.speed);
     }
 
     startFly() {
         this.bulletFly.isStart = true;
+        this.bulletFly.init(this.angle, this.speed);
     }
 
     stopFly() {
         this.bulletFly.isStart = false;
     }
-
-    // startAnimation() {
-    //     this.node.removeAllChildren();
-    //     let newAnim = instantiate(this.bulletAnim);
-    //     this.node.addChild(newAnim);  
-        
-    //     setTimeout(() => this.isDead = true, 100);
-    // }
 
     enabledSendDamage() {
         this.damageSender.node.active = true;

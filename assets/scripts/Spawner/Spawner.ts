@@ -11,8 +11,6 @@ export abstract class Spawner extends Component {
     private spawnerable: Node[]; // Những thứ có thể spawn (prefabs)
 
     private nodeReStore: Node;
-
-    private dem = 1;
     private nameSpawner = null;
 
     getSpawnerable() {
@@ -38,7 +36,6 @@ export abstract class Spawner extends Component {
     loadSpawneds() {
         if(this.spawneds.length > 0) 
             return;
-        // console.log("loadSpawneds");
         this.spawners.children.forEach(pool => this.spawnerable.push(pool));
         this.hideSpawners();
     }
@@ -51,9 +48,6 @@ export abstract class Spawner extends Component {
         this.nameSpawner = name;
         // console.log("spawn " + name);
         let nodePool = this.getNodePool(name);
-        // if(this.nameSpawner === "ItemDrop") {
-        //     console.log(posInWorld)
-        // }
 
         if(nodePool) {
             // console.log("dem: ", this.dem++);
@@ -70,13 +64,8 @@ export abstract class Spawner extends Component {
     }
 
     getNodePool(name: string) {
-        // if(this.nameSpawner === "ItemDrop") 
-        //     console.log("getNodePool", this.spawneds);
-        // if(this.nameSpawner === "ItemDrop") 
-        //     console.log("name", name);
         for (const node of this.spawneds) {
-            if(node.name === name) {
-                this.spawneds = this.spawneds.filter(_node => _node !== node); // Đưa ra khỏi
+            if(node.name === name && node.active === false) {
                 return node;                
             }
         }
@@ -85,7 +74,8 @@ export abstract class Spawner extends Component {
 
     getNewNodePool(name: string) {
         // if(this.nameSpawner === "ItemDrop") 
-        //     console.log("getNewNodePool", this.spawnerable);
+           // console.log("getNewNodePool", this.spawnerable.length);
+
         for (const node of this.spawnerable) {
             if(node.name === name) {
                 let nodePool = instantiate(node);
@@ -98,16 +88,15 @@ export abstract class Spawner extends Component {
     }
 
     despawnReStore(despawned: Node) {
+        //this.despawned.active = false; // Err activce
         // setTimeout(() =>  despawned.active = false, game.deltaTime); //??? Chỉ có thể active sau 1 frame
+
         this.nodeReStore = despawned;
         // this.spawneds.push(despawned);        
     }
 
     lateUpdate(dt: number) {
         if(this.nodeReStore) {
-            if(this.nodeReStore.name === "ItemDrop") {
-                console.log("Despown", this.nodeReStore);
-            }
             this.nodeReStore.active = false;
             this.spawneds.push(this.nodeReStore);
             this.nodeReStore = null;

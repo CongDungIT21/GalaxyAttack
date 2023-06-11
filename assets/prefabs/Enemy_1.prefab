@@ -13,7 +13,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Enemy_1",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": null,
     "_children": [
@@ -1278,7 +1278,7 @@
     "enabledContactListener": false,
     "bullet": false,
     "awakeOnLoad": true,
-    "_group": 1,
+    "_group": 2,
     "_type": 3,
     "_allowSleep": true,
     "_gravityScale": 1,
@@ -1309,7 +1309,7 @@
       "__id__": 58
     },
     "tag": 0,
-    "_group": 1,
+    "_group": 2,
     "_density": 1,
     "_sensor": false,
     "_friction": 0.2,
@@ -1489,7 +1489,6 @@
       "__id__": 0
     },
     "fileId": "3fz9bFmslP0K3xWXjyIJYL",
-    "instance": null,
     "targetOverrides": null
   }
 ]

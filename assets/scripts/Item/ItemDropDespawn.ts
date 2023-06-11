@@ -15,7 +15,7 @@ export class ItemDropDespawn extends Despawner {
     despawnNode(): void {
         this._isDespawn = false;
         ItemDropSpawner.instance.despawnReStore(this.node.parent);
-        console.log("getSpawnered: ", ItemDropSpawner.instance.getSpawnered());
+        // console.log("getSpawnered: ", ItemDropSpawner.instance.getSpawnered());
     }
 
     checkDespawnable(): boolean {

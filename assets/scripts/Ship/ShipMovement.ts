@@ -21,6 +21,17 @@ export class ShipMovement extends Component {
     }
 
     start() {
+        this.onMouseEvent();
+    }
+
+    offMouseEvent() {
+        input.off(Input.EventType.MOUSE_DOWN);
+        input.off(Input.EventType.MOUSE_MOVE);
+        input.off(Input.EventType.MOUSE_UP);
+        this.isTracking = false;
+    }
+
+    onMouseEvent() {
         input.on(Input.EventType.MOUSE_DOWN, (event: EventMouse) => {
             this.isTracking = true; 
             this.shipShooting.isShooting = true;

@@ -11,64 +11,75 @@ export class ShipShooting extends Component {
 
     private _isShooting: boolean;
     private canvas: Canvas;
-    private timeDelay: number;
+    private timeShooting: number;  // Thời gian bắn cách nhau của những  viên đạn
+    private barrelShooting: number; // Số nòng súng
     private timeCounter: number;
+    private speedBullet: number;
 
     onLoad() {
         this.canvas = director.getScene().getComponentInChildren(Canvas);
         this._isShooting = false;
-        this.timeDelay = 0.2; //speed shoot
+        this.timeShooting = 0.2; //speed shoot
+        this.barrelShooting = 2;
+        this.speedBullet = 500;
         this.timeCounter = 0;
+        this.updateDataShooting(0.3, 2, 600);
     }
 
     start() {
+    }
 
+    lateUpdate(deltaTime: number) {
+        this.shooting(deltaTime);
+    }
+
+    updateDataShooting(timeShooting: number, barrelShooting: number, speedBullet: number) {
+        this.timeShooting = timeShooting;
+        this.barrelShooting = barrelShooting;
+        this.speedBullet = speedBullet;
+        this.timeCounter = 0;
+    }
+
+    shootingOnBarrel(barrelPosition: Vec3, angle: number, speed: number) {
+        let bullet = BulletSpawner.instance.spawn("Bullet", angle, barrelPosition);
+        bullet.getComponent(Bullet).init(angle, speed, barrelPosition);
+        bullet.active = true;
+        bullet.getComponent(Bullet).startFly();
+        bullet.getComponent(Bullet).enabledSendDamage();
+        AudioManage.instance.bulletShoot.play();
     }
 
     shooting(deltaTime: number) {        
-        if(!this._isShooting) 
+        if(!this._isShooting) {
+            this.timeCounter = 0;
             return;
+        }
     
         this.timeCounter += deltaTime;  
-        if(this.timeCounter >= this.timeDelay) {
+        if(this.timeCounter >= this.timeShooting) {
             this.timeCounter = 0;
-            let posInWorld = this.node.getWorldPosition();
-            
-            //Dãy viên 1
-            let bulletPosition1 = new Vec3(posInWorld.x + this.node.getComponent(UITransform).width / 2, posInWorld.y, posInWorld.z);
-            let bullet1 = BulletSpawner.instance.spawn("Bullet", 90, bulletPosition1);
-            bullet1.active = true;
-            bullet1.getComponent(Bullet).init(90, 1000, bulletPosition1);
-            bullet1.getComponent(Bullet).startFly();
-            bullet1.getComponent(Bullet).enabledSendDamage();
-            AudioManage.instance.bulletShoot.play();
+            let posInWorld = this.node.getWorldPosition();            
+            if(this.barrelShooting === 2) {
+                let barrelPosition1 = new Vec3(posInWorld.x + this.node.getComponent(UITransform).width / 2, posInWorld.y, posInWorld.z);
+                this.shootingOnBarrel(barrelPosition1, 90, this.speedBullet);
 
-            //Dãy viên 2
-            let bulletPosition2 = new Vec3(posInWorld.x - this.node.getComponent(UITransform).width / 2, posInWorld.y, posInWorld.z);
-            let bullet2 = BulletSpawner.instance.spawn("Bullet", 90, bulletPosition2);
-            bullet2.active = true;
-            bullet2.getComponent(Bullet).init(90, 1000, bulletPosition2);
-            bullet2.getComponent(Bullet).startFly();
-            bullet2.getComponent(Bullet).enabledSendDamage();
-            AudioManage.instance.bulletShoot.play();
+                let barrelPosition2 = new Vec3(posInWorld.x - this.node.getComponent(UITransform).width / 2, posInWorld.y, posInWorld.z);
+                this.shootingOnBarrel(barrelPosition2, 90, this.speedBullet);
+            }
+            else {
+                let barretPosition = posInWorld;
+                let startAngle = 90 - Math.floor(this.barrelShooting / 2) * 5;
 
-            // let angle = 90 - 5*9;
-            // for(let i=0;i<18;i++) {                
-            //     let bullet = BulletSpawner.instance.spawn("Bullet", angle, posInWorld);
-            //     bullet.active = true;
-            //     bullet.getComponent(Bullet).init(angle, 1000, posInWorld);
-            //     bullet.getComponent(Bullet).startFly();
-            //     angle += 5;
-            // }
+                for(let i = 0; i < this.barrelShooting; i++) {
+                    let angle = startAngle + i * 5;
+                    this.shootingOnBarrel(barretPosition, angle, this.speedBullet);
+                }
+            }
         }
         else 
             return;
     }
 
-    update(deltaTime: number) {
-        this.shooting(deltaTime);
-    }
- 
     public set isShooting(value: boolean) {
         this._isShooting = value;
     }

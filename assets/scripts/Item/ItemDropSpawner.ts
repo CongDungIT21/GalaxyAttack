@@ -31,10 +31,10 @@ export class ItemDropSpawner extends Spawner {
     }
     
     public dropItem(item: Prefab, position: Vec3, angle: number) {
-        console.log("dropItem Call");
+        // console.log("dropItem Call");
         let itemDrop = this.spawn(item.name, angle, position);
         itemDrop.active = true;
-        console.log("itemDrop", itemDrop);
+        // console.log("itemDrop", itemDrop);
         // console.log("hihi", this.getSpawnerable());
         // console.log("haha", this.getSpawnered());
     }

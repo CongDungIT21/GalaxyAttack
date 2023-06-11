@@ -1,8 +1,19 @@
 import { _decorator, Component, Node, tween, Tween, Vec3 } from 'cc';
+import { ShipShooting } from './ShipShooting';
+import { ShipShield } from './ShipShield';
+import { GameController } from '../GameController';
+import { ShipMovement } from './ShipMovement';
 const { ccclass, property } = _decorator;
 
 @ccclass('Ship')
 export class Ship extends Component {
+    @property(ShipShooting)
+    shipShooting: ShipShooting;
+    @property(ShipShield)
+    shipShield: ShipShield;
+    @property(ShipMovement)
+    shipMovement: ShipMovement;
+
     private startPos: Vec3;
     private endPos: Vec3;
 
@@ -10,10 +21,6 @@ export class Ship extends Component {
         this.startPos = new Vec3(0, 0, 0);
         this.endPos = new Vec3(500, 500, 0);
     }
-
-    // onEnable() {
-    //     this.actionActive();
-    // }
 
     start() {
         this.node.active = false;
@@ -23,9 +30,21 @@ export class Ship extends Component {
         
     }
 
-    enableShiled() {
-        // throw new Error('Method not implemented.');
-        console.log('enableShiled');
+    applyEffectFromItem(name: string) {
+        this.applyEffectToShooting();
+        this.applyEffectToShield();
+    }
+
+    applyEffectToShooting() {
+        this.shipShooting.updateDataShooting(0.2, 5, 400);        
+    }
+
+    applyEffectToShield() {
+        this.shipShield.showPowerUpShield(5);
+    }
+
+    powerUpDone() {
+        this.shipShooting.updateDataShooting(0.3, 2, 600);
     }
 
     actionActive() {
@@ -41,6 +60,22 @@ export class Ship extends Component {
         this.startPos = startPos;
         this.endPos = endPos;
         this.actionActive();
+    }
+
+    stateEndGame() {
+        this.shipShooting.isShooting = false;
+        this.shipMovement.offMouseEvent();
+
+        Tween.stopAllByTarget(this.node);
+        let nowPos = this.node.getPosition();
+        tween(this.node)
+            .to(0.5, {position: new Vec3(nowPos.x, nowPos.y + 2000, 0)}, {easing: "cubicIn"})
+            .call(() => GameController.instance.showEndGame())
+            .start()
+    }
+
+    stateStartGame() {
+        this.shipMovement.onMouseEvent();
     }
 }
 

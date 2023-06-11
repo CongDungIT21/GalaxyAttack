@@ -12,7 +12,7 @@ export class ItemDrop extends Component {
     }
 
     despawnItem() {
-        console.log("itemDropDespawn")
+        // console.log("itemDropDespawn")
         this.itemDropDespawn.isDespawn = true;
     }
 

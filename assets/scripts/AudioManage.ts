@@ -10,7 +10,7 @@ export class AudioManage extends Component {
     @property(AudioSource)
     enemyDie: AudioSource;
     @property(AudioSource)
-    PowerUp: AudioSource;
+    powerUp: AudioSource;
 
     private static _instance: AudioManage;
 

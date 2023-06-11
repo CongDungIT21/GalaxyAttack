@@ -2,7 +2,7 @@ import { _decorator, Component, Node } from 'cc';
 import { Spawner } from '../Spawner/Spawner';
 const { ccclass, property } = _decorator;
 
-@ccclass('BulletSpawner')
+@ccclass('EnemySpawner')
 export class EnemySpawner extends Spawner {
     private static _instance: EnemySpawner;
 
@@ -10,11 +10,11 @@ export class EnemySpawner extends Spawner {
         super.onLoad();
         if(!EnemySpawner._instance) 
             EnemySpawner._instance = this;
+        this.loadSpawneds();
     }
 
     start() {
-        super.start();
-        this.loadSpawneds();
+        super.start();       
     }
 
     update(deltaTime: number) {
