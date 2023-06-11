@@ -24,7 +24,7 @@ export class Bullet extends Component {
         this.angle = angle;
         this.speed = speed;
         this.posInWorld = posInWorld;
-        
+        this.startFly();
     }
 
     onLoad() {
@@ -32,17 +32,9 @@ export class Bullet extends Component {
         this.stopFly();
     }
 
-    onEnable() {
-        this.bulletFly.init(this.angle, this.speed);
-    }
-
-    start() {
-        // this.bulletFly.init(this.angle, this.speed);
-    }
-
     startFly() {
-        this.bulletFly.isStart = true;
         this.bulletFly.init(this.angle, this.speed);
+        this.bulletFly.isStart = true;
     }
 
     stopFly() {

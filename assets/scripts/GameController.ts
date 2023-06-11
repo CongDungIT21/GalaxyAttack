@@ -5,18 +5,8 @@ import { EnemySpawner } from './Enemy/EnemySpawner';
 import { AudioManage } from './AudioManage';
 import { UI_Start } from './UI/UI_Start';
 import { UI_End } from './UI/UI_End';
+import { DataEnemy, DataShip, EnemyName } from './GlobalVariable';
 const { ccclass, property } = _decorator;
-
-interface DataShip {
-    readonly StartPosition: [number, number],
-    readonly EndPosition: [number, number]
-}
-
-interface DataEnemy {
-    readonly EnemyType: number,
-    readonly StartPosition: [number, number],
-    readonly EndPosition: [number, number]
-}
 
 @ccclass('GameController')
 export class GameController extends Component {
@@ -92,10 +82,10 @@ export class GameController extends Component {
     initEnemy(dataEnemy: DataEnemy) {
         let nameEnemy : string = "";
         if(dataEnemy.EnemyType === 1) {
-            nameEnemy = "Enemy_1";
+            nameEnemy = EnemyName.ENEMY1;
         }
         else if(dataEnemy.EnemyType === 2) {
-                nameEnemy = "Enemy_2";
+                nameEnemy = EnemyName.ENEMY2;
         }
         else return;
 

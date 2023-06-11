@@ -11,16 +11,6 @@ export class BulletFly extends Component {
     init(angle: number, speed: number) {
         this._speed = speed;
         this._angle = angle;
-    }
-
-    onLoad() {
-        this._speed = 100;
-        this._angle = 160;
-        this._isStart = false;
-    }
-    
-
-    start() {
         this.calculateDirection();
     }
 

@@ -1478,7 +1478,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "e3zWdCdPpC2LVwTRlQmwIp"
+    "fileId": "e6Cv2KilJDF4A4NwYKC6kX"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1489,6 +1489,7 @@
       "__id__": 0
     },
     "fileId": "3fz9bFmslP0K3xWXjyIJYL",
+    "instance": null,
     "targetOverrides": null
   }
 ]

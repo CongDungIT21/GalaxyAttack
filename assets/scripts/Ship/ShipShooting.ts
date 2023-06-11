@@ -15,6 +15,7 @@ export class ShipShooting extends Component {
     private barrelShooting: number; // Số nòng súng
     private timeCounter: number;
     private speedBullet: number;
+    private startShootingPos: Vec3;
 
     onLoad() {
         this.canvas = director.getScene().getComponentInChildren(Canvas);
@@ -42,9 +43,9 @@ export class ShipShooting extends Component {
 
     shootingOnBarrel(barrelPosition: Vec3, angle: number, speed: number) {
         let bullet = BulletSpawner.instance.spawn("Bullet", angle, barrelPosition);
-        bullet.getComponent(Bullet).init(angle, speed, barrelPosition);
         bullet.active = true;
-        bullet.getComponent(Bullet).startFly();
+        bullet.getComponent(Bullet).init(angle, speed, barrelPosition);
+     //   bullet.getComponent(Bullet).startFly();
         bullet.getComponent(Bullet).enabledSendDamage();
         AudioManage.instance.bulletShoot.play();
     }
@@ -58,7 +59,7 @@ export class ShipShooting extends Component {
         this.timeCounter += deltaTime;  
         if(this.timeCounter >= this.timeShooting) {
             this.timeCounter = 0;
-            let posInWorld = this.node.getWorldPosition();            
+            let posInWorld = this.node.getWorldPosition();           
             if(this.barrelShooting === 2) {
                 let barrelPosition1 = new Vec3(posInWorld.x + this.node.getComponent(UITransform).width / 2, posInWorld.y, posInWorld.z);
                 this.shootingOnBarrel(barrelPosition1, 90, this.speedBullet);
