@@ -79,7 +79,7 @@ export abstract class Spawner extends Component {
         for (const node of this.spawnerable) {
             if(node.name === name) {
                 let nodePool = instantiate(node);
-                this.spawneds.push(nodePool);
+                // this.spawneds.push(nodePool);
                 return nodePool;                
             }
         }
@@ -98,7 +98,7 @@ export abstract class Spawner extends Component {
     lateUpdate(dt: number) {
         if(this.nodeReStore) {
             this.nodeReStore.active = false;
-            this.spawneds.push(this.nodeReStore);
+            // this.spawneds.push(this.nodeReStore);
             this.nodeReStore = null;
         }
     }
