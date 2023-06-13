@@ -1,14 +1,14 @@
-import { _decorator, Component, Node, Prefab, tween, Tween, Vec3 } from 'cc';
+import { _decorator, Animation, Component, Node, Prefab, tween, Tween, Vec3 } from 'cc';
 import { DamageReceive } from '../Damage/DamageReceive';
 const { ccclass, property } = _decorator;
 
 @ccclass('Enemy')
-export class Enemy extends Component {
-
-    
+export class Enemy extends Component {    
     @property(Prefab)  
     itemDrop: Prefab;
-    
+    @property(Animation)
+    anim: Animation;
+
     private damageReceive: DamageReceive;
     private startPos: Vec3;
     private endPos: Vec3;
@@ -17,6 +17,7 @@ export class Enemy extends Component {
         this.startPos = new Vec3(0, 0, 0);
         this.endPos = new Vec3(500, 500, 0);
         this.damageReceive = this.node.getComponentInChildren(DamageReceive);
+        this.anim.stop();
         // console.log(this.damageReceive);
     }
 
@@ -31,6 +32,7 @@ export class Enemy extends Component {
         tween(this.node)
             .call(() => this.node.setPosition(this.startPos))
             .to(3, {position: this.endPos}, {easing: "cubicIn"})
+            .call(() => this.anim.play())
             .start()
     }
 

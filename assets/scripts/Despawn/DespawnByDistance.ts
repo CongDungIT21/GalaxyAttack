@@ -1,4 +1,4 @@
-import { _decorator, Camera, Canvas, Component, director, UITransform, Vec2, Vec3 } from 'cc';
+import { _decorator, Camera, Canvas, Component, director, Node, UITransform, Vec2, Vec3 } from 'cc';
 import { Bullet } from '../Bullet/Bullet';
 import { Despawner } from './Despawn';
 const { ccclass, property } = _decorator;
@@ -9,13 +9,15 @@ export class DespawnerByDistance extends Despawner {
     private camera: Camera;
     private cameraPosition: Vec3;
     private distanceMax: number;
+    private parentNode: Node;
 
     onLoad() {
         super.onLoad();
         this.canvas = director.getScene().getComponentInChildren(Canvas);
         this.camera = this.canvas.getComponentInChildren(Camera);
         this.cameraPosition = this.camera.node.getWorldPosition(); // (360, 640, 1000)
-        this.distanceMax = this.caculatorDistanceMax();
+        this.distanceMax = this.caculatorDistanceMax();      
+        this.parentNode = this.node.parent;  
         // console.log("distanceMax: ", this.distanceMax);
     }
 
@@ -40,10 +42,10 @@ export class DespawnerByDistance extends Despawner {
     }
 
     caculatorDistance() {
-        if(!this.node.parent) 
+        if(!this.parentNode) 
             return null;
 
-        let posInWorld = this.node.parent.getWorldPosition();
+        let posInWorld = this.parentNode.getWorldPosition();
         let distance = Vec3.squaredDistance(posInWorld, this.cameraPosition);
         return distance;
     }
@@ -51,7 +53,7 @@ export class DespawnerByDistance extends Despawner {
     //override
     despawnNode(): void {
         console.log("despawnNode");
-        this.node.parent.destroy();
+        this.parentNode.destroy();
     }
 }
 

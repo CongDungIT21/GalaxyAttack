@@ -28,10 +28,6 @@ export class CanvasController extends Component {
 
     }
 
-    update(deltaTime: number) {
-        // this.updateCanvas();
-    }
-
     updateCanvas() {
         // let designResolution = view.getDesignResolutionSize();
         // console.log(designResolution

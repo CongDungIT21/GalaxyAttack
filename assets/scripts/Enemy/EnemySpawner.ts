@@ -16,10 +16,6 @@ export class EnemySpawner extends Spawner {
     start() {
         super.start();       
     }
-
-    update(deltaTime: number) {
-        
-    }
  
     public static get instance() : EnemySpawner {
         if (!EnemySpawner._instance) {

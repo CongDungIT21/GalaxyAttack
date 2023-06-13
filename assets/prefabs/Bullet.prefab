@@ -166,7 +166,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "28d65049-5529-4a45-a558-114b6fc0e064@f9941",
+      "__uuid__": "8ea08040-7c3d-4318-b352-16a046535f17@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -517,10 +517,6 @@
     },
     "damageSender": {
       "__id__": 17
-    },
-    "itemDrop": {
-      "__uuid__": "63412af0-7e69-4b7f-b5fc-4d89d9b35628",
-      "__expectedType__": "cc.Prefab"
     },
     "bulletAnim": {
       "__uuid__": "f8e27d28-b4ff-4d95-92fc-a788cea714b2",

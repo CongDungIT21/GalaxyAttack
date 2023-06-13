@@ -1,6 +1,7 @@
 import { _decorator, Component, instantiate, Node, Prefab } from 'cc';
 import { ShipShooting } from './ShipShooting';
 import { Ship } from './Ship';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipShield')
@@ -23,6 +24,8 @@ export class ShipShield extends Component {
     }
     
     update(deltaTime: number) {
+        if(!GameController.waitingLoadData) return;
+
         if(this.usingShiled) {
             this.timeUsed -= deltaTime;
             if(this.timeUsed <= 0) {

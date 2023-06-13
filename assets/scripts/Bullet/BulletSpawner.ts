@@ -16,10 +16,6 @@ export class BulletSpawner extends Spawner {
         super.start();
         this.loadSpawneds();
     }
-
-    update(deltaTime: number) {
-        
-    }
  
     public static get instance() : BulletSpawner {
         if (!BulletSpawner._instance) {

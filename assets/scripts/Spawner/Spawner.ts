@@ -1,5 +1,6 @@
 import { _decorator, Component, game, Game, instantiate, Node, Prefab, UITransform, Vec3 } from 'cc';
 import { Bullet } from '../Bullet/Bullet';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('Spawner')
@@ -69,6 +70,15 @@ export abstract class Spawner extends Component {
                 return node;                
             }
         }
+
+        for(let i=0;i<this.spawneds.length;i++) {
+            let _node = this.spawneds[i];
+            if(_node.name === name && _node.active === false) {
+                this.spawneds.splice(i, 1);
+                return _node;
+            }
+        }
+
         return this.getNewNodePool(name);
     }
 
@@ -92,10 +102,11 @@ export abstract class Spawner extends Component {
         // setTimeout(() =>  despawned.active = false, game.deltaTime); //??? Chỉ có thể active sau 1 frame
 
         this.nodeReStore = despawned;
-        // this.spawneds.push(despawned);        
+        this.spawneds.push(despawned);        
     }
 
     lateUpdate(dt: number) {
+        if(!GameController.waitingLoadData) return;
         if(this.nodeReStore) {
             this.nodeReStore.active = false;
             // this.spawneds.push(this.nodeReStore);

@@ -10,10 +10,6 @@ export class Anim extends Component {
     start() {
 
     }
-
-    update(deltaTime: number) {
-        
-    }
 }
 
 

@@ -1,4 +1,5 @@
 import { _decorator, Component, Node } from 'cc';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('Despawner')
@@ -16,6 +17,7 @@ export abstract class Despawner extends Component {
     // }
 
     protected lateUpdate(dt: number): void {
+        if(!GameController.waitingLoadData) return;
         this.despawning();
     }
 

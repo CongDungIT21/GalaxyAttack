@@ -26,10 +26,6 @@ export class Ship extends Component {
         this.node.active = false;
     }
 
-    update(deltaTime: number) {
-        
-    }
-
     applyEffectFromItem(name: string) {
         this.applyEffectToShooting();
         this.applyEffectToShield();

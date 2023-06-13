@@ -13,10 +13,6 @@ export class EnemyDespawn extends DespawnByDead {
         super.start();
     }
 
-    update(deltaTime: number) {
-        
-    }
-
     //Override cách despawn
     despawnNode(): void {
         // console.log("EnemyDespawn")

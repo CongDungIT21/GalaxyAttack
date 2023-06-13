@@ -268,12 +268,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "b83cbfd3-6cfc-49f0-b1e7-70a48e6e9951@f9941",
+      "__uuid__": "781e2a80-78f2-4eed-a3b9-9484dd9d83c9@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -401,12 +401,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "8b48e394-0ebc-4c5d-9516-dd26863f050c@f9941",
+      "__uuid__": "f8c4e9e4-b9c5-4adf-8c3a-70e9cb50a0e8@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -596,12 +596,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "b83cbfd3-6cfc-49f0-b1e7-70a48e6e9951@f9941",
+      "__uuid__": "781e2a80-78f2-4eed-a3b9-9484dd9d83c9@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -729,12 +729,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "8b48e394-0ebc-4c5d-9516-dd26863f050c@f9941",
+      "__uuid__": "f8c4e9e4-b9c5-4adf-8c3a-70e9cb50a0e8@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -875,12 +875,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "b90dfaba-f042-45a5-9db0-aec9c313e085@f9941",
+      "__uuid__": "21342da4-1a48-498d-8ecd-a40ca2590636@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -921,7 +921,7 @@
     "__prefab": {
       "__id__": 38
     },
-    "playOnLoad": true,
+    "playOnLoad": false,
     "_clips": [
       {
         "__uuid__": "3477d02c-cdc1-4a9f-b3ab-864347451caf",
@@ -1219,6 +1219,9 @@
       "__uuid__": "63412af0-7e69-4b7f-b5fc-4d89d9b35628",
       "__expectedType__": "cc.Prefab"
     },
+    "anim": {
+      "__id__": 37
+    },
     "_id": ""
   },
   {
@@ -1234,6 +1237,7 @@
       "__id__": 0
     },
     "fileId": "51fo6WKblKPKYUqUjNeLSu",
+    "instance": null,
     "targetOverrides": null
   }
 ]

@@ -8,10 +8,6 @@ export class UI_End extends Component {
         this.node.active = false
     }
     
-    
-    update(deltaTime: number) {
-        
-    }
 
     show() {
         this.node.active = true;

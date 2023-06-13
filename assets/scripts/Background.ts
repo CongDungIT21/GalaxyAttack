@@ -1,14 +1,20 @@
 import { _decorator, Canvas, Component, director, Node, UITransform, Vec3, view, WebView } from 'cc';
+import { GameController } from './GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('Background')
 export class Background extends Component {
     private speed: number = 150;
     private heightCanvas: number;
+    private backgrounds: Node[] = [];
 
-    start() {
+    onLoad() {
         this.heightCanvas = director.getScene().getComponentInChildren(Canvas).getComponent(UITransform).height;
-        this.node.children.forEach((node, index) => {
+        this.backgrounds = this.node.children;
+    }
+
+    start() {        
+        this.backgrounds.forEach((node, index) => {
             node.setPosition(new Vec3(0, this.heightCanvas * index + 1, 0));
         })
     }
@@ -27,7 +33,8 @@ export class Background extends Component {
     }
 
     update(deltaTime: number) {
-        this.node.children.forEach(node => this.move(node, deltaTime * this.speed));
+        if(!GameController.waitingLoadData) return;
+        this.backgrounds.forEach(node => this.move(node, deltaTime * this.speed));
     }
 }
 

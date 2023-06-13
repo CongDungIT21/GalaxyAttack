@@ -15,10 +15,6 @@ export class ItemDrop extends Component {
         // console.log("itemDropDespawn")
         this.itemDropDespawn.isDespawn = true;
     }
-
-    update(deltaTime: number) {
-        
-    }
 }
 
 

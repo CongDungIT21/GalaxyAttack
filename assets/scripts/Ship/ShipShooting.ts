@@ -2,6 +2,7 @@ import { _decorator, Canvas, Component, director, instantiate, Node, Prefab, UIT
 import { Bullet } from '../Bullet/Bullet';
 import { BulletSpawner } from '../Bullet/BulletSpawner';
 import { AudioManage } from '../AudioManage';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipShooting')
@@ -31,6 +32,7 @@ export class ShipShooting extends Component {
     }
 
     lateUpdate(deltaTime: number) {
+        if(!GameController.waitingLoadData) return;
         this.shooting(deltaTime);
     }
 

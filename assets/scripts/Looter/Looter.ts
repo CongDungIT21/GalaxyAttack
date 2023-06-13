@@ -19,10 +19,6 @@ export class Looter extends Component {
         AudioManage.instance.powerUp.play();
         this.node.parent.getComponent(Ship).applyEffectFromItem(otherCollider.node.name);
     }
-
-    update(deltaTime: number) {
-        
-    }
 }
 
 

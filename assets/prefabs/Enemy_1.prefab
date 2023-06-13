@@ -281,7 +281,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "11b43601-ed31-40d7-9160-90067a9dd306@f9941",
+      "__uuid__": "51f73a55-22c4-4cd0-822c-0b53ccebdd84@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -414,7 +414,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "e7999e65-9cb2-4cec-843e-0f77e46df067@f9941",
+      "__uuid__": "e281477e-7e8e-4490-8579-e306f07396f5@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -640,7 +640,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "11b43601-ed31-40d7-9160-90067a9dd306@f9941",
+      "__uuid__": "51f73a55-22c4-4cd0-822c-0b53ccebdd84@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -773,7 +773,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "e7999e65-9cb2-4cec-843e-0f77e46df067@f9941",
+      "__uuid__": "e281477e-7e8e-4490-8579-e306f07396f5@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -946,12 +946,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "50eb9561-b2e3-445e-97d4-8eae20665ee4@f9941",
+      "__uuid__": "7dfd3a1e-15b6-40ac-a65b-6971ce5850f6@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -1079,12 +1079,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "689f29a0-e7b5-48f9-ba36-e61ed3a0f048@f9941",
+      "__uuid__": "d2f11662-7d13-4354-b44a-1ae0cd7aa882@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -1473,6 +1473,9 @@
     "itemDrop": {
       "__uuid__": "63412af0-7e69-4b7f-b5fc-4d89d9b35628",
       "__expectedType__": "cc.Prefab"
+    },
+    "anim": {
+      "__id__": 49
     },
     "_id": ""
   },

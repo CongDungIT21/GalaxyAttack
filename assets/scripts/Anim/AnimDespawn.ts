@@ -5,8 +5,11 @@ const { ccclass, property } = _decorator;
 
 @ccclass('AnimDespawn')
 export class AnimDespawn extends DespawnByTime {
+    private parentNode: Node;
+
     onLoad() {
         super.onLoad();
+        this.parentNode = this.node.parent;
     }
 
     start() {
@@ -19,7 +22,7 @@ export class AnimDespawn extends DespawnByTime {
 
     //Override cách despawn
     despawnNode(): void {
-        AnimSpawner.instance.despawnReStore(this.node.parent);
+        AnimSpawner.instance.despawnReStore(this.parentNode);
     }
 }
 

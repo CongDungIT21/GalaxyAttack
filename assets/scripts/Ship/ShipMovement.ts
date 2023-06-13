@@ -1,5 +1,6 @@
 import { _decorator, Camera, Canvas, Component, director, EventMouse, input, Input, Node, UITransform, v3, Vec3 } from 'cc';
 import { ShipShooting } from './ShipShooting';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipMovement')
@@ -52,6 +53,7 @@ export class ShipMovement extends Component {
     }
 
     update(deltaTime: number) {
+        if(!GameController.waitingLoadData) return;
         if(this.newPosition !== null && this.isTracking) {
             let timeDuration = deltaTime * this.speed;
             timeDuration = Math.min(timeDuration, 1.0);

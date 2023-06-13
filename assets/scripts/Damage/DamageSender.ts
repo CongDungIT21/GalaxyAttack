@@ -2,6 +2,7 @@ import { _decorator, Collider2D, Component, Contact2DType, EPhysics2DDrawFlags, 
 import { DamageReceive } from './DamageReceive';
 import { Bullet } from '../Bullet/Bullet';
 import { AnimSpawner } from '../Anim/AnimSpawner';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('DamageSender')
@@ -9,16 +10,12 @@ export class DamageSender extends Component {
     private damage: number;
     private isDead: boolean;
     private isActice: boolean;
+    private parentNode: Node;
     onLoad() {
         this.damage = 10;
         this.isDead = false;
         this.isActice = false;
-
-        // PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.Aabb |
-        // EPhysics2DDrawFlags.Pair |
-        // EPhysics2DDrawFlags.CenterOfMass |
-        // EPhysics2DDrawFlags.Joint |
-        // EPhysics2DDrawFlags.Shape;
+        this.parentNode = this.node.parent;
     }
 
     start() {
@@ -27,16 +24,12 @@ export class DamageSender extends Component {
             collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
     }
-
-    
-    update(deltaTime: number) {
-        
-    }
     
     lateUpdate(dt: number) {
+        if(!GameController.waitingLoadData) return;
         //Tắt khả năng gửi Đam và va chạm => Lao ra khỏi màn hình => Despawn
         if(this.isActice) {
-            this.node.parent.getComponent(Bullet).disableSendDamage();
+            this.parentNode.getComponent(Bullet).disableSendDamage();
             this.isActice = false;
         }
     }

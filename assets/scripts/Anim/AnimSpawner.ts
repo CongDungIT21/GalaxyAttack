@@ -19,10 +19,6 @@ export class AnimSpawner extends Spawner {
         super.start();
         this.loadSpawneds();
     }
-
-    update(deltaTime: number) {
-        
-    }
  
     public static get instance() : AnimSpawner {
         if (!AnimSpawner._instance) {

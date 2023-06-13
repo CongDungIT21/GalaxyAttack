@@ -28,6 +28,8 @@ export class GameController extends Component {
         return GameController._instance; 
     }
 
+    public static waitingLoadData: boolean = false;
+
     private dataTmpEnemies: DataEnemy[];
     private isRender: boolean;
     private idxChallenge: number;
@@ -47,12 +49,15 @@ export class GameController extends Component {
         this.idxChallenge = 0;
         this.numberEnemies = null;
         this.data = this.config.json;
+        //this.initGameData(this.data);
     }
 
     start() {        
         AudioManage.instance.background.play();
         // console.log("JSON Data", this.config.json);
+
         this.initGameData(this.data);
+        GameController.waitingLoadData = true;
     }
 
     initGameData(data: any) {
@@ -71,12 +76,13 @@ export class GameController extends Component {
     }
 
     initEnemies(dataEnemies: DataEnemy[]) {
-        //Mỗi lần 7 con để đảm bảo preformance
+        //Mỗi lần 1 con để đảm bảo preformance
         this.dataTmpEnemies = dataEnemies;
         this.isRender = true;
 
         this.numberEnemies = dataEnemies.length;
-        console.log("this.numberEnemies: ", this.numberEnemies)
+        // console.log("this.numberEnemies: ", this.numberEnemies);
+        // dataEnemies.forEach(dataEnemy => this.initEnemy(dataEnemy));
     }
 
     initEnemy(dataEnemy: DataEnemy) {

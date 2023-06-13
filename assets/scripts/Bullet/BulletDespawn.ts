@@ -13,10 +13,6 @@ export class BulletDespawn extends DespawnerByDistance {
         super.start();
     }
 
-    update(deltaTime: number) {
-        
-    }
-
     //Override cách despawn
     despawnNode(): void {
         BulletSpawner.instance.despawnReStore(this.node.parent);

@@ -19,16 +19,18 @@ export class Bullet extends Component {
     private posInWorld: Vec3;
     private angle: number;
     private speed: number;
+    private model: Node;
 
     init(angle: number, speed: number, posInWorld: Vec3) {
         this.angle = angle;
         this.speed = speed;
-        this.posInWorld = posInWorld;
+        this.posInWorld = posInWorld;    
         this.startFly();
     }
 
     onLoad() {
         this.isDead = false;
+        this.model = this.node.getChildByName("Model");
         this.stopFly();
     }
 
@@ -43,12 +45,12 @@ export class Bullet extends Component {
 
     enabledSendDamage() {
         this.damageSender.node.active = true;
-        this.node.getChildByName("Model").active = true;
+        this.model.active = true;
     }
 
     disableSendDamage() {
         this.damageSender.node.active = false;
-        this.node.getChildByName("Model").active = false;
+        this.model.active = false;
     }
 
     update(deltaTime: number) {

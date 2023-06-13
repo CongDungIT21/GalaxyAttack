@@ -12,8 +12,11 @@ export class DamageReceive extends Component {
     private _hp: number; //Health Points
     private _MAXHP: number;
     private isStateDead: boolean;
+    private parentNode: Node;
+
     onLoad() {
         this._MAXHP = 30;  
+        this.parentNode = this.node.parent;
         this.isStateDead = false;
     }
     
@@ -83,12 +86,12 @@ export class DamageReceive extends Component {
         // console.log("Random Number: " + randomNumber);
         if(randomNumber > 20) 
             return;
-        let enemy = this.node.parent;
+        let enemy = this.parentNode;
         ItemDropSpawner.instance.dropItem(enemy.getComponent(Enemy).itemDrop, enemy.getWorldPosition(), enemy.angle);
     }
 
     notifyEnemyDead() {
-        console.log("Notify Enemy Dead: ", this.node.parent.uuid);
+        console.log("Notify Enemy Dead: ", this.parentNode.uuid);
         GameController.instance.enemyDead();
     }
 

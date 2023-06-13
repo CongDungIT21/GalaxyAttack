@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, tween, Tween, Vec2, Vec3 } from 'cc';
+import { GameController } from '../GameController';
 const { ccclass, property } = _decorator;
 
 @ccclass('UI_Start')
@@ -57,6 +58,7 @@ export class UI_Start extends Component {
     }
 
     update(deltaTime: number) {
+        if(!GameController.waitingLoadData) return;
         if(this.isTweening) {
             this.delayTime -= deltaTime;
             if(this.delayTime <= 0) {

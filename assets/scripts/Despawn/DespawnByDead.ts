@@ -16,10 +16,6 @@ export class DespawnByDead extends Despawner {
         super.start();
     }
 
-    update(deltaTime: number) {
-        
-    }
-
     //override
     despawnNode(): void {
         // console.log("despawnNode");
